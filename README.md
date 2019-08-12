@@ -10,6 +10,7 @@ B = 3380[K]
 ```
 
 # eq.
-here
+![eq](https://user-images.githubusercontent.com/11486268/62881604-2025a880-bd6b-11e9-86f2-68b08cad765c.png)
 
 # Wiring
+![w](https://user-images.githubusercontent.com/11486268/62881754-70046f80-bd6b-11e9-9162-ad1773b54869.jpg)
