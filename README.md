@@ -12,5 +12,5 @@ B = 3380[K]
 #### eq.
 ![eq](https://user-images.githubusercontent.com/11486268/62881604-2025a880-bd6b-11e9-86f2-68b08cad765c.png)
 
-#### Wiring
+#### Wiring(WIP, MEMO)
 ![w](https://user-images.githubusercontent.com/11486268/63232586-1ff24500-c264-11e9-82f9-0360e538737d.jpg)
