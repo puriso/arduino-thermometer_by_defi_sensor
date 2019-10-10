@@ -13,4 +13,7 @@ B = 3380[K]
 ![eq](https://user-images.githubusercontent.com/11486268/62881604-2025a880-bd6b-11e9-86f2-68b08cad765c.png)
 
 #### Wiring(WIP, MEMO)
-![w](https://user-images.githubusercontent.com/11486268/63232586-1ff24500-c264-11e9-82f9-0360e538737d.jpg)
+![w](https://user-images.githubusercontent.com/11486268/63653493-70a7f780-c7a8-11e9-8760-64afc0fed03c.jpg)
+
+## Todo
+https://github.com/puriso/arduino-thermometer_by_defi_sensor/issues
