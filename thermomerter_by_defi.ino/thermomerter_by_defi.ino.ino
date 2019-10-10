@@ -7,9 +7,11 @@
 #include <Wire.h>
 
 U8G2_SSD1309_128X64_NONAME2_F_4W_HW_SPI u8g2(U8G2_R0, /* cs=*/ 10, /* dc=*/ 9, /* reset=*/ 8);  
+//U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2(U8G2_R0);
 
 #define COUNTOF(ary) (sizeof(ary) / sizeof(ary[0]))
 const int SENSOR = 0; 
+const int PRESSURE_SENSOR = 1; 
 
 int input_for_temp = 0;// 温度用入力抵抗値
 float r = 0; // 抵抗値
@@ -37,7 +39,8 @@ void loop() {
 
  // 水温
  water_temp_history[loop_count] = get_water_temp();
- display_water_temp();
+ display(water_temps_avg(), get_oil_pressure());
+ 
 
  delay(1000);
 }
@@ -92,31 +95,7 @@ float get_water_temp(){
  return water_temp;
 }
 
-// 水温表示
-void display_water_temp(){
- float temp = water_temps_avg();
- char buf[24];
- char val2;
- dtostrf(temp, 6, 1, buf);
 
- // TODO: 調整が適当
- int x = temp < 100 ? 14 : 0;
- 
- u8g2.firstPage();
-  do {
-    u8g2.setFontPosTop();
-    u8g2.setFont( u8g2_font_tenthinguys_tf );
-    u8g2.drawStr(0, 0, "WTR.T");
-
-    u8g2.setFont( u8g2_font_freedoomr25_tn );
-    u8g2.drawStr(-8 - x, 18, buf);
-    //u8g2.drawStr(-8, 18, "100.2");
-
-    u8g2.setFont( u8g2_font_tenthinguys_tf );
-    u8g2.drawStr(100 - x * 2, 33, ".C");
-    
-  } while( u8g2.nextPage( ) );
-}
 
 // 水温補正
 // 取得した値の直近10つの平均を表示する
@@ -130,10 +109,55 @@ float water_temps_avg(){
 
 
 //--------------------
+// 油圧関連
+//--------------------
+// 油圧取得(Kpa)
+float get_oil_pressure(){
+  float vo = analogRead(PRESSURE_SENSOR) * 5.0f / 1023.0f;
+  return 250 * (vo - 0.480) * 0.0101972;
+}
+
+
+//--------------------
+// ディスプレイ表示
+//--------------------
+void display(float water_temp, float oil_pressure){
+ char value[8];
+ dtostrf(water_temp, 6, 1, value);
+ 
+ u8g2.firstPage();
+  do {
+    u8g2.setFontPosTop();
+
+    // 水温
+    dtostrf(water_temp, 6, 1, value);
+    u8g2.setFont( u8g2_font_tenthinguys_tf );
+    u8g2.drawStr(0, 0, "WTR.T");
+     u8g2.setFont( u8g2_font_tenthinguys_tf );
+    u8g2.drawStr(0, 12, value);
+    
+    // 油圧
+    dtostrf(oil_pressure, 6, 1, value);
+    u8g2.setFont( u8g2_font_tenthinguys_tf );
+    u8g2.drawStr(0, 30, "OIL.P");
+     u8g2.setFont( u8g2_font_tenthinguys_tf );
+    u8g2.drawStr(0, 42, value);
+
+    
+  } while( u8g2.nextPage() );
+}
+
+
+//--------------------
 // Dev
 //--------------------
 // 開発用Log
+float vo = 0;
 void println_temp_log(float r, float temp){
+  Serial.print("圧力: "); 
+  vo = analogRead(PRESSURE_SENSOR) * 5.0f / 1023.0f;
+  Serial.print(250 * (vo - 0.480) * 0.0101972); 
+  Serial.println("kpa");   
   Serial.print("抵抗値: "); 
   Serial.println(r); 
   Serial.print("温度: "); 
