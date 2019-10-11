@@ -4,11 +4,18 @@ Thermometer by Defi sensor for arduino.
 ![w](https://user-images.githubusercontent.com/11486268/66576894-72404a00-ebb3-11e9-85b9-71a46f9ab2dd.JPG)
 
 ## The sensor characteristics
-### PDF00903S
+### PDF00903S - Temp
 
 ```
 R25ºC = 10000[Ω]
 B = 3380[K]
+```
+
+### PDF00703S - Press
+
+```
+Vo = {analog value} * 5v / 1024 # arduino 10bit(0~1024)
+n[KPa]  = 250(Vo - 0.480) * 0.0101972
 ```
 
 #### eq.
