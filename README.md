@@ -1,3 +1,10 @@
+# NEW PROJECT IS HERE!!
+
+Click here for the completed version
+
+https://github.com/puriso/racing_guage
+
+
 # arduino-thermometer_by_defi_sensor
 Thermometer by Defi sensor for arduino.
 
